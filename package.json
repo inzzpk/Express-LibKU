@@ -1,0 +1,22 @@
+{
+  "name": "express-libku",
+  "version": "0.0.1",
+  "description": "use for react native",
+  "main": "index.js",
+  "scripts": {
+    "test": "eiei"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inzzpk/Express-LibKU.git"
+  },
+  "author": "Pimvanat Kosiyakul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inzzpk/Express-LibKU/issues"
+  },
+  "homepage": "https://github.com/inzzpk/Express-LibKU#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
