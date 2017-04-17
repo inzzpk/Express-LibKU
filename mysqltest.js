@@ -32,7 +32,7 @@ exports.queryDelivery = function(callback){
 
 	connection.connect()
 
-	connection.query("SELECT * FROM `delivery` WHERE id<10", function (err, result){
+	connection.query("SELECT * FROM `delivery` WHERE id<100", function (err, result){
 	  if (err) {
 		callback(err,null);
 	  }
@@ -78,6 +78,54 @@ exports.queryItemsBarcode = function(barcode,callback){
 	connection.connect()
 
 	connection.query("select * from `book` where isbn = ? ",[barcode], function (err, result){
+	  if (err) {
+		callback(err,null);
+	  }
+	  else{
+	  	callback(null,result);
+	  }
+	  
+	  ;
+	})
+	connection.end()	
+}
+
+exports.queryLoginBarcode = function(barcode,callback){
+	var mysql = require('mysql')
+	var connection = mysql.createConnection({
+		  host     : '158.108.48.254',
+		  user     : 'mobileapp',
+		  password : 'mobileapp',
+		  database : 'test'
+		});
+
+	connection.connect()
+
+	connection.query("select * from `member` where barcode = ? ",[barcode], function (err, result){
+	  if (err) {
+		callback(err,null);
+	  }
+	  else{
+	  	callback(null,result);
+	  }
+	  
+	  ;
+	})
+	connection.end()	
+}
+
+exports.queryUser = function(user,pass,callback){
+	var mysql = require('mysql')
+	var connection = mysql.createConnection({
+		  host     : '158.108.48.254',
+		  user     : 'mobileapp',
+		  password : 'mobileapp',
+		  database : 'test'
+		});
+
+	connection.connect()
+
+	connection.query("select * from `member` where `member_id` = ? and `barcode` = ?",[user,pass], function (err, result){
 	  if (err) {
 		callback(err,null);
 	  }

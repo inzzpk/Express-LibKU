@@ -63,6 +63,37 @@ app.get('/byBarcode/:barcode', function(req, res){
 	// res.json(cosmetic.searchByName(name));
 });
 
+app.get('/LoginbyBarcode/:barcode', function(req, res){
+	var barcode = req.params.barcode;
+	mysqltest.queryLoginBarcode(barcode,function(err,result){
+		if (err){
+			console.log(err);
+		}
+		else{
+			console.log(result)
+			res.json(result);
+		}
+		
+	});
+	// res.json(cosmetic.searchByName(name));
+});
+
+app.get('/chkLogin/:user/:pass', function(req, res){
+	var user = req.params.user;
+	var pass = req.params.pass;
+	mysqltest.queryUser(user,pass,function(err,result){
+		if (err){
+			console.log(err);
+		}
+		else{
+			console.log(result)
+			res.json(result);
+		}
+		
+	});
+	// res.json(cosmetic.searchByName(name));
+});
+
 app.get('/eieiei', function (req, res) {
 	mysqltest.addItems(function(err,result){
 		if (err){
