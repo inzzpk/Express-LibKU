@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/inzzpk/Express-LibKU#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "mysql": "^2.12.0",
+    "multer": "^1.3.0",
+    "cookie-parser":"^1.4.3",
+    "body-parser":"^1.15.2"
   }
 }
