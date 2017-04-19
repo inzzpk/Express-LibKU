@@ -10,7 +10,7 @@ exports.queryComplain = function(callback){
 
 	connection.connect()
 
-	connection.query("SELECT * FROM `complain`", function (err, result){
+	connection.query("SELECT * FROM `rec`", function (err, result){
 	  if (err) {
 		callback(err,null);
 	  }
@@ -43,24 +43,25 @@ exports.queryDelivery = function(callback){
 	connection.end()	
 }
 
-exports.addItems = function(callback){
+exports.addRecom = function(json,callback){
+	console.log(json)
 	var mysql = require('mysql')
 	var connection = mysql.createConnection({
 		  host     : '158.108.48.254',
 		  user     : 'mobileapp',
 		  password : 'mobileapp',
-		  database : 'recom'
+		  database : 'test'
 		});
 
 	connection.connect()
 
-	connection.query("INSERT INTO `complain` (`c_date`, `c_time`, `c_title`, `c_name`, `c_cp`) VALUES ('2017-04-16', '12.00', 'ทดสอบ3', 'taeyeon', 'ทดสอบทดสอบทดสอบ')", function (err, result){
-	  if (err) {
-		callback(err,null);
-	  }
-	  else{
-	  	callback(null,result);
-	  }
+	connection.query("INSERT INTO `rec` (r_name,r_tel,r_mail,r_date, r_time, r_b, r_z, r_rec) VALUES (?,?,?,?,?,?,?,?)",[json.r_name,json.r_tel,json.r_mail,json.r_date,json.r_time,json.r_b,json.r_z,json.r_rec], function (err, result){
+		if (err)
+			console.log(err)
+		if (result){
+			console.log(result)
+
+		}
 	})
 	connection.end()	
 }

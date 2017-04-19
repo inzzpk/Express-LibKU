@@ -109,14 +109,12 @@ app.post('/createRequest', function(req, res){
 	// res.json(cosmetic.searchByName(name));
 });
 
-app.get('/eieiei', function (req, res) {
-	mysqltest.addItems(function(err,result){
-		if (err){
-			console.log(err);
-		}
-		else{
+app.post('/createRecom', function (req, res) {
+	let json = req.body;
+	mysqltest.addRecom(json,function(err,result){
+		if (result){
 			console.log(result)
-			res.json(result);
+			res.jon(result)
 		}
 		
 	})
