@@ -1,11 +1,18 @@
 /* โหลด Express มาใช้งาน */
 var express = require('express');
 var bodyparser = require('body-parser');
+var cors = require('cors')
+
 
 var users = require('./users');
 var mysqltest = require('./mysqltest');
+var intro = require('./intro');
+var news = require('./news');
+var dbs = require('./dbs');
 
 var app = express()
+app.use(cors())
+app.use(cors({origin: '*'}));
 app.use(bodyparser.urlencoded({extened:true}));
 app.use(bodyparser.json());
 /* ใช้ port 7777 หรือจะส่งเข้ามาตอนรัน app ก็ได้ */
@@ -37,8 +44,10 @@ app.get('/com', function (req, res) {
 	// res.json(cosmetic.searchByName(name));
 });
 
-app.get('/deli', function (req, res) {
-	mysqltest.queryDelivery(function(err,result){
+////////////////////////Intro////////////////////////
+
+app.get('/fetchIntro', function (req, res) {
+	intro.fetchIntro(function(err,result){
 		if (err){
 			console.log(err);
 		}
@@ -48,8 +57,102 @@ app.get('/deli', function (req, res) {
 		}
 		
 	})
-	// res.json(cosmetic.searchByName(name));
 });
+
+app.post('/addIntro', function(req, res){
+	let json = req.body;
+	// console.log(json)
+	intro.addIntro(json).then( (data)=>{
+		res.json(data)
+	}).catch( err => console.log(err))
+});
+
+app.post('/deleteIntro', function(req, res){
+	let json = req.body;
+	// console.log(json)
+	intro.deleteIntro(json).then( (data)=>{
+		res.json(data)
+	}).catch( err => console.log(err))
+});
+
+
+// app.post('/deleteIntro', function(req, res){
+// 	let json = req.body;
+// 	intro.deleteIntro(json,function(err,result){
+// 		if (err){
+// 			console.log(err);
+// 		}
+// 		else{
+// 			console.log(result)
+// 			res.json(result);
+// 		}
+// 	})
+// });
+
+//////////////////////////////////////////////
+///////////////////News///////////////////////
+
+app.get('/fetchNews', function (req, res) {
+	news.fetchNews(function(err,result){
+		if (err){
+			console.log(err);
+		}
+		else{
+			console.log(result)
+			res.json(result);
+		}
+		
+	})
+});
+
+app.post('/addNews', function(req, res){
+	let json = req.body;
+	// console.log(json)
+	news.addNews(json).then( (data)=>{
+		res.json(data)
+	}).catch( err => console.log(err))
+});
+
+app.post('/deleteNews', function(req, res){
+	let json = req.body;
+	// console.log(json)
+	news.deleteNews(json).then( (data)=>{
+		res.json(data)
+	}).catch( err => console.log(err))
+});
+
+//////////////////////////////////////////////
+///////////////////Dbs///////////////////////
+
+app.get('/fetchDbs', function (req, res) {
+	dbs.fetchDbs(function(err,result){
+		if (err){
+			console.log(err);
+		}
+		else{
+			console.log(result)
+			res.json(result);
+		}	
+	})
+});
+
+app.post('/addDbs', function(req, res){
+	let json = req.body;
+	// console.log(json)
+	dbs.addDbs(json).then( (data)=>{
+		res.json(data)
+	}).catch( err => console.log(err))
+});
+
+app.post('/deleteDbs', function(req, res){
+	let json = req.body;
+	// console.log(json)
+	dbs.deleteDbs(json).then( (data)=>{
+		res.json(data)
+	}).catch( err => console.log(err))
+});
+
+//////////////////////////////////////////////
 
 app.get('/byBarcode/:barcode', function(req, res){
 	var barcode = req.params.barcode;
@@ -106,7 +209,6 @@ app.post('/createRequest', function(req, res){
 			res.jon(result)
 		}
 	})
-	// res.json(cosmetic.searchByName(name));
 });
 
 app.post('/createRecom', function (req, res) {
@@ -118,37 +220,20 @@ app.post('/createRecom', function (req, res) {
 		}
 		
 	})
-	// res.json(cosmetic.searchByName(name));
+}); 
+
+app.post('/createDeli', function (req, res) {
+	let json = req.body;
+	mysqltest.addDeli(json,function(err,result){
+		if (result){
+			console.log(result)
+			res.jon(result)
+		}
+		
+	})
 }); 
 /* สั่งให้ server ทำการรัน Web Server ด้วย port ที่เรากำหนด */
 app.listen(port, function() {
     console.log('Starting node.js on port ' + port);
 });
 
-
-
-// app.get('/createRequest/:r_title/:r_type/:r_author/:r_isbn/:r_pub/:r_name/:r_mail/:r_tel/:r_fac/:r_year/:r_date' , function(req, res){
-
-// 	var r_title = req.params.r_title;
-// 	var r_type = req.params.r_type;
-// 	var r_author = req.params.r_author;
-// 	var r_isbn = req.params.r_isbn;
-// 	var r_pub = req.params.r_pub;
-// 	var r_name = req.params.r_name;
-// 	var r_mail = req.params.r_mail;
-// 	var r_tel = req.params.r_tel;
-// 	var r_fac = req.params.r_fac;
-// 	var r_year = req.params.r_year;
-// 	var r_date =  req.params.r_date;
-// 	mysqltest.addRequest(r_title,r_type,r_author,r_isbn,r_pub,r_name,r_mail,r_tel,r_fac,r_year,r_date,function(err,result){
-// 		if (err){
-// 			console.log(err);
-// 		}
-// 		else{
-// 			console.log(result)
-// 			res.json(result);
-// 		}
-		
-// 	});
-// 	// res.json(cosmetic.searchByName(name));
-// });
