@@ -76,19 +76,6 @@ app.post('/deleteIntro', function(req, res){
 });
 
 
-// app.post('/deleteIntro', function(req, res){
-// 	let json = req.body;
-// 	intro.deleteIntro(json,function(err,result){
-// 		if (err){
-// 			console.log(err);
-// 		}
-// 		else{
-// 			console.log(result)
-// 			res.json(result);
-// 		}
-// 	})
-// });
-
 //////////////////////////////////////////////
 ///////////////////News///////////////////////
 

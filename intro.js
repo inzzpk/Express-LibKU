@@ -9,7 +9,32 @@ exports.fetchIntro = function(callback){
 
 	connection.connect()
 
-	connection.query("SELECT * FROM `intros` WHERE deleted IS null", function (err, result){
+	//connection.query("SELECT * FROM `intros` WHERE deleted IS null", function (err, result){
+	connection.query("SELECT * FROM `intros` WHERE deleted IS null ORDER BY id DESC", function (err, result){
+		
+
+	  if (err) {
+		callback(err,null);
+	  }
+	  else{
+	  	callback(null,result);
+	  }
+	})
+	connection.end()	
+}
+
+exports.fetchIntroDesc = function(callback){
+	var mysql = require('mysql')
+	var connection = mysql.createConnection({
+		  host     : '158.108.48.254',
+		  user     : 'mobileapp',
+		  password : 'mobileapp',
+		  database : 'test'
+		});
+
+	connection.connect()
+
+	connection.query("SELECT * FROM `intros` WHERE deleted IS null ORDER BY id DESC", function (err, result){
 	  if (err) {
 		callback(err,null);
 	  }
@@ -80,26 +105,3 @@ exports.deleteIntro = function(json){
 		})
 		
 }
-
-// exports.deleteIntro = function(json,callback){
-// 	console.log(json)
-// 	var mysql = require('mysql')
-// 	var connection = mysql.createConnection({
-// 		  host     : '158.108.48.254',
-// 		  user     : 'mobileapp',
-// 		  password : 'mobileapp',
-// 		  database : 'test'
-// 		});
-
-// 	connection.connect()
-
-// 	connection.query("UPDATE `intros_copy` SET `deleted`='Yes' WHERE id = ?",[json.id], function (err, result){
-// 	  if (err) {
-// 		callback(err,null);
-// 	  }
-// 	  else{
-// 	  	callback(null,result);
-// 	  }
-// 	})
-// 	connection.end()	
-// }

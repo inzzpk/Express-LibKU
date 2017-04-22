@@ -9,7 +9,8 @@ exports.fetchNews = function(callback){
 
 	connection.connect()
 
-	connection.query("SELECT * FROM `newsinfos` WHERE deleted IS null", function (err, result){
+	//connection.query("SELECT * FROM `newsinfos` WHERE deleted IS null", function (err, result){
+	connection.query("SELECT * FROM `newsinfos` WHERE deleted IS null ORDER BY id DESC", function (err, result){
 	  if (err) {
 		callback(err,null);
 	  }
