@@ -161,6 +161,30 @@ exports.queryLoginBarcode = function(barcode,callback){
 	connection.end()	
 }
 
+exports.queryFineBook = function(barcode,callback){
+	var mysql = require('mysql')
+	var connection = mysql.createConnection({
+		  host     : '158.108.48.254',
+		  user     : 'mobileapp',
+		  password : 'mobileapp',
+		  database : 'test'
+		});
+
+	connection.connect()
+
+	connection.query("select * from `fine` where cardnumber = ? ",[barcode], function (err, result){
+	  if (err) {
+		callback(err,null);
+	  }
+	  else{
+	  	callback(null,result);
+	  }
+	  
+	  ;
+	})
+	connection.end()	
+}
+
 exports.queryUser = function(user,pass,callback){
 	var mysql = require('mysql')
 	var connection = mysql.createConnection({
